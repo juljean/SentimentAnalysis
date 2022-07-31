@@ -3,6 +3,7 @@ import pandas as pd
 from KeyExtraction import Tokenization, stop_words, data_list, df
 from collections import Counter
 from sklearn.naive_bayes import MultinomialNB
+from sklearn.feature_extraction.text import TfidfVectorizer
 
 pd.set_option('display.width', 75)
 
@@ -10,10 +11,14 @@ nytdata = get_data('hutto_nyt')
 bags_of_words = []
 
 for text in nytdata.text:
+    text = [x for x in text if
+                x not in stop_words and x.isalpha()
+                and len(x) > 1 and x.islower()]
+    vectorizer = TfidfVectorizer(min_df=1)
+    model = vectorizer.fit_transform(text)
+
     token = Tokenization(text)
-    token_without_stopwords = [x for x in token if
-                                x not in stop_words and x.isalpha()
-                                and len(x) > 1 and x.islower()]
+    token_without_stopwords = [x for x in token]
     bags_of_words.append(Counter(token_without_stopwords))
 
 df_bows = pd.DataFrame.from_records(bags_of_words)

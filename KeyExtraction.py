@@ -13,10 +13,10 @@ from collections import Counter
 
 stop_words = nltk.corpus.stopwords.words('english')
 
-filename = 'C:\\Users\\Jul\\PycharmProjects\\operationResearch\\CSV\\BloombergUPD.csv'
-filenameoutput = 'CSV\\BloombergUPD.csv'
+filename = 'C:\\Users\Jul\PycharmProjects\operationResearch\CSV\Bloomberg_tweets_clear.csv'
+filenameoutput = 'C:\\Users\Jul\PycharmProjects\operationResearch\CSV\BloombergUPD.csv'
 punctuations = "?:!,.;()"
-df = pd.read_csv(filename, usecols=['Comments'])
+df = pd.read_csv(filename)
 
 
 #Extracting the words from teh sentance & returning list
@@ -34,12 +34,9 @@ def Decapitalization(text):
 #print(Decapitalization("U.S. Mortgage Rates Hover at the Highest Level. Since 2010 U.S. mortgage rates were little changed, holding at the highest level since April 2010."))
 def Purification():
     data_list = []
-    element = "bloomberg.com"
-    data = df['Comments'].tolist()
+    data = df.iloc(2).tolist()
     for i in range (len(data)):
-        if element in data[i]:
-            data_list.append(" ".join(list(dropwhile(lambda x: x != element, data[i].split()))[1:]))
-        else: data_list.append(data[i])
+        data_list.append(data[i])
     return data_list
 
 def KeysDef(tokens, filenameoutput):
