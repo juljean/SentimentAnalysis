@@ -1,5 +1,7 @@
 import pandas as pd
 import matplotlib.pyplot as plt
+from gensim.models import Word2Vec
+word_vectors = Word2Vec.load("word2vec.model")
 
 filename1 = 'C:\\Users\\Jul\\PycharmProjects\\operationResearch\\CSV\\BloombergUPD.csv'
 filename2 = 'C:\\Users\\Jul\\PycharmProjects\\operationResearch\\CSV\\NYT_tweetsUPD.csv'
